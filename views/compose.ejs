@@ -3,9 +3,14 @@
 
 <h1>COMPOSE A NEW POST</h1>
 <form action="/" method="post">
-    <input type="text" name="postdata" id="postdata">
-    <textarea name="postdetails" id="postdetails" cols="30" rows="5"></textarea>
-    <button type="submit">Submit</button>
+    <div class="form-group" >
+
+    <label for="">Post Title</label>
+    <input class="form-control" type="text" name="postdata" id="postdata">
+    <label for="">Post</label>
+    <textarea class="form-control" name="postdetails" id="postdetails" cols="30" rows="5"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 
 <%- include("./partials/footer") -%>
