@@ -19,7 +19,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // global varibales
-let posts = ["this is a new post", "this is a second post"];
+let posts = [
+  { title: "hello", post: "This is the found post" },
+  { title: "bils", post: "This is the bills post" },
+  { title: "micro", post: "This is MicroSOft Post" },
+];
 
 // code starts here
 // routes
@@ -33,12 +37,41 @@ app.get("/", function (req, res) {
 // handles the upcoming post request
 app.post("/", function (req, res) {
   const data = req.body;
-  let { postdata } = data;
-  postdata = String(postdata);
-  posts.push(postdata);
+  let { posttitle, postdetails } = data;
+  let newPost = {
+    title: posttitle,
+    post: postdetails,
+  };
+
+  posts.push(newPost);
 
   res.redirect("/");
+});
 
+//--- dynamic get routes --- posts --- post-title
+
+app.get("/post/:posttitle", function (req, res) {
+  let postTitle = req.params.posttitle;
+  // console.log(postTitle);
+
+  let postFound;
+  posts.forEach((post) => {
+    if (post.title == postTitle) {
+      postFound = {
+        title: post.title,
+        post: post.post,
+      };
+    }
+  });
+
+  if (postFound == null) {
+    res.send("<h2>No Post Found</h2>");
+  }
+
+  res.render("post", {
+    title: postFound.title,
+    post: postFound.post,
+  });
 });
 
 app.get("/about", function (req, res) {
