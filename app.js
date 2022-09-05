@@ -91,6 +91,7 @@ app.get("/post/:posttitle", function (request, response) {
 
 app.get("/about", function (request, response) {
   // renders about page
+  // spell mistake aboutContect? fix also about.ejs for spell
   response.render("about", {
     aboutContect: aboutContent,
   });
