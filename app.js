@@ -1,7 +1,7 @@
 //jshint esversion:6 -- for atom- but its built in vs code.
 // import express for routing and middlewares - protection-encoding
 const express = require("express");
-// import body-parser for parsing req.body data
+// import body-parser for parsing request.body data
 const bodyParser = require("body-parser");
 // import ejs for dynamic html pages embedded with javascript- for dynamic rendering
 const ejs = require("ejs");
@@ -20,7 +20,7 @@ const contactContent =
 const app = express();
 // init ejs for views folder rendering
 app.set("view engine", "ejs");
-// using body-parser for parsing req.body
+// using body-parser for parsing request.body
 app.use(bodyParser.urlencoded({ extended: true }));
 // setting up a public folder style sheet- public unprotected data.
 app.use(express.static("public"));
@@ -41,8 +41,8 @@ app.get("/", function (request, response) {
   });
 });
 // handles the upcoming post request
-app.post("/", function (req, res) {
-  const data = req.body;
+app.post("/", function (request, response) {
+  const data = request.body;
   // getting data from a form -
   let { posttitle, postdetails } = data;
   // creating a object for new post data
@@ -53,11 +53,11 @@ app.post("/", function (req, res) {
   // dummy array push - temp - todos remove
   posts.push(newPost);
   // redirecting user to home-page. updated posts
-  res.redirect("/");
+  response.redirect("/");
 });
 //--- dynamic get routes --- posts --- post-title - search posts
-app.get("/post/:posttitle", function (req, res) {
-  let postTitle = req.params.posttitle;
+app.get("/post/:posttitle", function (request, response) {
+  let postTitle = request.params.posttitle;
   // formating upcomming search params
   postTitle = postTitle.split("-").join(" ");
   // lowering the search params
@@ -80,30 +80,30 @@ app.get("/post/:posttitle", function (req, res) {
   // validation for if a isnt found
   if (postFound == null || postFound == undefined) {
     // no match found ? return.
-    return res.send("<h2>No Post Found</h2>");
+    return response.send("<h2>No Post Found</h2>");
   }
   // sending response if match found - with new direct object.
-  res.render("post", {
+  response.render("post", {
     title: postFound.title,
     post: postFound.post,
   });
 });
 
-app.get("/about", function (req, res) {
+app.get("/about", function (request, response) {
   // renders about page
-  res.render("about", {
+  response.render("about", {
     aboutContect: aboutContent,
   });
 });
-app.get("/contact", function (req, res) {
+app.get("/contact", function (request, response) {
   // renders contact page
-  res.render("contact", {
+  response.render("contact", {
     contactContect: contactContent,
   });
 });
-app.get("/compose", function (req, res) {
+app.get("/compose", function (request, response) {
   // renders compose page
-  res.render("compose");
+  response.render("compose");
 });
 // routes ends here
 
