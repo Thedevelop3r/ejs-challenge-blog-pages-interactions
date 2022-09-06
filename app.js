@@ -73,7 +73,7 @@ app.get("/post/:posttitle", function (request, response) {
   // iterating over posts object array for a match
   posts.forEach((post) => {
     // lowering the post.title to match for search params.
-    if (post.title.toLowerCase() == postTitle) {
+    if (post.title.split("-").join(" ").toLowerCase() == postTitle) {
       //todos: remove this and send a response direcctly with
       // matched results
       //- remove. setting up postFound varibale if title matches
