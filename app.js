@@ -58,6 +58,11 @@ app.post("/", function (request, response) {
 //--- dynamic get routes --- posts --- post-title - search posts
 app.get("/post/:posttitle", function (request, response) {
   let postTitle = request.params.posttitle;
+  // ---if a query is being sent then this should do.
+  if (request.query.posttitle) {
+    postTitle = request.query.posttitle;
+  }
+  // ---- Otherwise calling api would still work ---
   // formating upcomming search params
   postTitle = postTitle.split("-").join(" ");
   // lowering the search params
@@ -108,6 +113,6 @@ app.get("/compose", function (request, response) {
 // routes ends here
 
 // server starts listening....
-app.listen(3000, function () {
-  console.log("Server started on port 3000");
+app.listen(4500, function () {
+  console.log("Server started on port 4500");
 });
