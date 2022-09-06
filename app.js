@@ -57,8 +57,9 @@ app.post("/", function (request, response) {
 });
 //--- dynamic get routes --- posts --- post-title - search posts
 app.get("/post/:posttitle", function (request, response) {
+  // --- first priority api -
   let postTitle = request.params.posttitle;
-  // ---if a query is being sent then this should do.
+  // --- second priority if a query is being sent then this should do.
   if (request.query.posttitle) {
     postTitle = request.query.posttitle;
   }
