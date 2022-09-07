@@ -1,4 +1,5 @@
 //jshint esversion:6 -- for atom- but its built in vs code.
+require("dotenv").config();
 // import express for routing and middlewares - protection-encoding
 const express = require("express");
 // import body-parser for parsing request.body data
@@ -7,12 +8,17 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 // lodash for string format
 const _ = require("lodash");
+// importing Mongoose COnnection
+const {ConnectDatabase} = require("./connectdatabase");
+
+
 // -- importing routes
 const HomeRoute = require("./routes/home");
 const AboutRoute = require("./routes/about");
 const ContactRoute = require("./routes/contact");
 const ComposeRoute = require("./routes/compose");
 const PostSearchRoute = require("./routes/postsearch");
+const PostsRoute = require("./routes/posts");
 // init express app
 const app = express();
 // init ejs for views folder rendering
@@ -28,10 +34,11 @@ app.use(AboutRoute);
 app.use(ContactRoute);
 app.use(ComposeRoute);
 app.use(PostSearchRoute);
+app.use(PostsRoute);
 
+// Server Listening + Database Connection
 
-
-// server starts listening....
+ConnectDatabase();
 app.listen(4500, function () {
   console.log("Server started on port 4500");
 });
